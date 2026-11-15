@@ -1,5 +1,5 @@
 # Срабатывает на pull request в main и в main-task-* (не в студенческую ветку как base).
-# Тип edited нужен, чтобы при смене base (main → main-task-0) Checks запустились снова.
+# Тип edited нужен, чтобы при смене base (main → main-task-1) Checks запустились снова.
 # Правка только заголовка PR не гоняет тесты (фильтр на job).
 # Шаги:
 # - если base не main-task-*: комментарий в PR и красный Check;
@@ -40,7 +40,7 @@ jobs:
           echo "ok=true" >> "$GITHUB_OUTPUT"
         else
           echo "ok=false" >> "$GITHUB_OUTPUT"
-          echo "::error::Pull request открыт в ветку «${BASE}». Нужна ветка задания main-task-N (например main-task-0), не main. На странице PR: Edit рядом с base → выбрать main-task-… Новый PR создавать не нужно."
+          echo "::error::Pull request открыт в ветку «${BASE}». Нужна ветка задания main-task-N (например main-task-1), не main. На странице PR: Edit рядом с base → выбрать main-task-… Новый PR создавать не нужно."
         fi
 
     - name: Комментарий — неверная ветка base
@@ -55,7 +55,7 @@ jobs:
             marker,
             '⚠️ Этот pull request открыт в ветку `' + base + '`.',
             '',
-            'Для программных заданий поле **base** должно быть веткой задания: `main-task-0`, `main-task-1-v1` и т.д., **не** `main`.',
+            'Для программных заданий поле **base** должно быть веткой задания: `main-task-1`, `main-task-3-v11` и т.д., **не** `main`.',
             '',
             'Как исправить: на странице PR нажмите **Edit** рядом с base, выберите нужный `main-task-…` и сохраните. Новый pull request создавать не нужно.',
             '',
