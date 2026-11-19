@@ -3,6 +3,9 @@ import unittest
 from main import calculate_determinant
 from matrix_generator import generate_matrix_and_det
 
+import sys
+sys.setrecursionlimit(3000)
+
 
 def require_generator(test_case):
     sample = generate_matrix_and_det(1)
