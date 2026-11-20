@@ -1,6 +1,3 @@
-from profilehooks import profile
-
-
 def fibonacci_rec(n: int) -> int:
     """Возвращает N-е число Фибоначчи. Реализована рекурсивно согласно
     формуле вычисления последовательности.
@@ -8,7 +5,9 @@ def fibonacci_rec(n: int) -> int:
     :param n: порядковый номер числа Фибоначчи
     :return: число Фибоначчи
     """
-    pass
+    if n == 1 or n == 2:
+        return 1
+    return fibonacci_rec(n - 1) + fibonacci_rec(n - 2)
 
 
 def fibonacci_iter(n: int) -> int:
@@ -18,7 +17,17 @@ def fibonacci_iter(n: int) -> int:
     :param n: порядковый номер числа Фибоначчи
     :return: число Фибоначчи
     """
-    pass
+    if n <= 2:
+        return 1
+
+    s = (n + 1) * [0]
+
+    s[1] = 1
+    s[2] = 1
+
+    for i in range(3, n + 1):
+        s[i] = s[i - 1] + s[i - 2]
+    return s[n]
 
 
 def fibonacci(n: int) -> int:
@@ -27,7 +36,15 @@ def fibonacci(n: int) -> int:
     :param n: порядковый номер числа Фибоначчи
     :return: число Фибоначчи
     """
-    pass
+    if n <= 2:
+        return 1
+
+    st1 = 1
+    st2 = 1
+
+    for i in range(3, n + 1):
+        st1, st2 = st2, st1 + st2
+    return st2
 
 
 def main():
