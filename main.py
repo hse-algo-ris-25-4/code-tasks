@@ -7,7 +7,45 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     :raises Exception: если matrix не является такой матрицей
     :return: значение определителя
     """
-    pass
+    if not matrix:
+        raise Exception("Матрица заполнена неверно")
+    n = len(matrix)
+    for row in matrix:
+        if len(row) != n:
+            raise Exception("Матрица не квадратная")
+
+    a = matrix[0][0]
+    if n > 1:
+        b = matrix[0][1]
+        c = matrix[1][0]
+    else:
+        b = c = 0
+    check_tridiagonal(matrix, n, a, b, c)
+    return count_determ(n, a, b, c)
+
+
+# проверка трехдиагональности матрицы
+def check_tridiagonal(matrix, n, a, b, c):
+    for i in range(n):
+        for j in range(n):
+            element = 0
+            if i == j:  # главная диагональ
+                element = a
+            elif j == i + 1:  # над главной диагональю
+                element = b
+            elif i == j + 1:  # под главной диагональю
+                element = c
+            if matrix[i][j] != element:
+                raise Exception("Матрица не трехдиагональная")
+
+
+# расчет определителя
+def count_determ(n, a, b, c):
+    if n == 1:
+        return a
+    if n == 2:
+        return a * a - b * c
+    return a * count_determ(n - 1, a, b, c) - b * c * count_determ(n - 2, a, b, c)
 
 
 def main():
