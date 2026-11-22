@@ -23,7 +23,7 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     b = matrix[0][1] if rows > 1 else 0
     c = matrix[1][0] if rows > 1 else 0
 
-    test = 1
+
 
     for i, row in enumerate(matrix):
         for j, value in enumerate(row):
