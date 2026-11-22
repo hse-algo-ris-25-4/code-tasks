@@ -13,6 +13,7 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
         if order == 1:
             return a
 
+
         return (a * determinant(order - 1, a, b, c) - b * c * determinant(order - 2, a, b, c))
 
     rows = len(matrix)
@@ -21,6 +22,8 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     a = matrix[0][0]
     b = matrix[0][1] if rows > 1 else 0
     c = matrix[1][0] if rows > 1 else 0
+
+    test = 1
 
     for i, row in enumerate(matrix):
         for j, value in enumerate(row):
