@@ -24,7 +24,11 @@
 
 Порядок установки ПО, работы с Git и разбор ошибок CI описаны в репозитории **docs**. Зелёные Checks на GitHub не означают, что решение принято.
 
+<<<<<<< HEAD
 Задание расположено в ветке https://github.com/hse-algo-ris-25-1/code-tasks/tree/main-task-1
+=======
+Задание расположено в ветке https://github.com/hse-algo-ris-25-4/code-tasks/tree/main-task-1
+>>>>>>> d86b40b0ff03ffb3ea7f3246b4c0d17b5c8d9201
 
 
 ## По теме
