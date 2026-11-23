@@ -59,11 +59,7 @@ jobs:
             '',
             'Как исправить: на странице PR нажмите **Edit** рядом с base, выберите нужный `main-task-…` и сохраните. Новый pull request создавать не нужно.',
             '',
-<<<<<<< HEAD
-            'Инструкция: https://github.com/hse-algo-ris-25-1/docs/blob/main/submitting-code-task.md',
-=======
             'Инструкция: https://github.com/hse-algo-ris-25-4/docs/blob/main/submitting-code-task.md',
->>>>>>> d86b40b0ff03ffb3ea7f3246b4c0d17b5c8d9201
           ].join('\n');
 
           const { data: comments } = await github.rest.issues.listComments({
