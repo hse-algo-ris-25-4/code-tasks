@@ -12,24 +12,22 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     if n == 0:
         raise Exception("Пустая матрица")
 
-    for row in matrix:
-        if len(row) != n:
-            raise Exception("Неквадратная матрица")
-
     a = matrix[0][0]
     b = matrix[0][1] if n > 1 else 0
     c = matrix[1][0] if n > 1 else 0
 
     for i in range(n):
+        if len(matrix[i]) != n:
+            raise Exception("Неквадратная матрица")
         for j in range(n):
+            x = 0
+
             if i == j:
                 x = a
             elif j == i + 1:
                 x = b
             elif i == j + 1:
                 x = c
-            else:
-                x = 0
 
             if matrix[i][j] != x:
                 raise Exception("Неверная матрица")
@@ -41,6 +39,7 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
         d0, d1 = d1, a * d1 - b * c * d0
 
     return d1
+
 
 def main():
     matrix = [[2, -3, 0, 0], [5, 2, -3, 0], [0, 5, 2, -3], [0, 0, 5, 2]]
