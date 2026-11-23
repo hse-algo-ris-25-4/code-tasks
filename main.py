@@ -7,8 +7,40 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     :raises Exception: если matrix не является такой матрицей
     :return: значение определителя
     """
-    pass
+    n = len(matrix)
 
+    if n == 0:
+        raise Exception("Пустая матрица")
+
+    for row in matrix:
+        if len(row) != n:
+            raise Exception("Неквадратная матрица")
+
+    a = matrix[0][0]
+    b = matrix[0][1] if n > 1 else 0
+    c = matrix[1][0] if n > 1 else 0
+
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                x = a
+            elif j == i + 1:
+                x = b
+            elif i == j + 1:
+                x = c
+            else:
+                x = 0
+
+            if matrix[i][j] != x:
+                raise Exception("Неверная матрица")
+
+    d0 = 1
+    d1 = a
+
+    for i in range(2, n + 1):
+        d0, d1 = d1, a * d1 - b * c * d0
+
+    return d1
 
 def main():
     matrix = [[2, -3, 0, 0], [5, 2, -3, 0], [0, 5, 2, -3], [0, 0, 5, 2]]
