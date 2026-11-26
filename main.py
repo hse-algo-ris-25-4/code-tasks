@@ -1,51 +1,49 @@
 def calculate_determinant(matrix: list[list[int]]) -> int:
     """Вычисляет определитель разложением по строке.
-
     :param matrix: квадратная целочисленная матрица порядка не меньше 1
     :raises Exception: если matrix не является такой матрицей
     :return: значение определителя
     """
     if not isinstance(matrix, list) or len(matrix) == 0:
-        raise ValueError("Матрица должна быть непустым списком списков.")
+        raise Exception("Матрица должна быть непустым списков")
 
     n = len(matrix)
-    for row in matrix:
-        if not isinstance(row, list) or len(row) != n:
-            raise ValueError("Матрица должна быть квадратной.")
-        for element in row:
-            if type(element) is not int:
-                raise ValueError("Все элементы матрицы должны быть целыми числами.")
+    for r in matrix:
+        if not isinstance(r, list) or len(r) != n:
+            raise Exception("Матрица должна быть квадратной")
+        for el in r:
+            if type(el) is not int:
+                raise Exception("Все элементы матрицы должны быть целыми числами")
 
-    def get_minor(sub_matrix: list[list[int]], row_idx: int, col_idx: int) -> int:
-        """Вычисляет минор элемента, вычеркивая строку row_idx и столбец col_idx."""
-        minor_matrix = []
-        for k in range(len(sub_matrix)):
-            if k == row_idx:
-                continue
+    def minor(matrix: list[list[int]], row_id: int, col_id: int) -> int:
+        # Вычисляет минор, вычеркивая row_id и col_id
+        mn = []
+        for k in range(len(matrix)):
+            if k == row_id: continue
             r = []
-            for j in range(len(sub_matrix)):
-                if j != col_idx:
-                    r.append(sub_matrix[k][j])
-            minor_matrix.append(r)
-        return det_recursive(minor_matrix)
+            for j in range(len(matrix)):
+                if j != col_id: r.append(matrix[k][j])
 
-    def get_cofactor(sub_matrix: list[list[int]], row_idx: int, col_idx: int) -> int:
-        """Вычисляет алгебраическое дополнение элемента."""
-        return ((-1) ** (row_idx + col_idx)) * get_minor(sub_matrix, row_idx, col_idx)
+            mn.append(r)
+        
+        return det(mn)
 
-    def det_recursive(sub_matrix: list[list[int]]) -> int:
-        size = len(sub_matrix)
-        if size == 1:
-            return sub_matrix[0][0]
-        if size == 2:
-            return sub_matrix[0][0] * sub_matrix[1][1] - sub_matrix[0][1] * sub_matrix[1][0]
+    def calc_alg_dop(matrix: list[list[int]], row_id: int, col_id: int) -> int:
+        return ((-1)**(row_id + col_id)) * minor(matrix, row_id, col_id)
+
+    def det(matrix: list[list[int]]) -> int:
+        s = len(matrix)
+        if s == 1: return matrix[0][0]
+        if s == 2:
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
 
         determinant = 0
-        for i in range(size):
-            determinant += sub_matrix[0][i] * get_cofactor(sub_matrix, 0, i)
+        for i in range(s):
+            determinant += matrix[0][i] * calc_alg_dop(matrix, 0, i)
+
         return determinant
 
-    return det_recursive(matrix)
+    return det(matrix)
 
 
 def main():
