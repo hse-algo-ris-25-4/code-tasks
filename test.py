@@ -3,6 +3,9 @@ import unittest
 from main import calculate_determinant
 from matrix_generator import generate_matrix_and_det
 
+import sys
+sys.setrecursionlimit(3000)
+
 
 def require_generator(test_case):
     sample = generate_matrix_and_det(1)
@@ -61,7 +64,23 @@ class TestDeterminant(unittest.TestCase):
                 for row in test_case.matrix:
                     self.assertEqual(len(row), order)
                 self.assertEqual(calculate_determinant(test_case.matrix), test_case.det)
+    
+    def test_not_int_fan(self):
+        """Проверяет, что функция выбрасывает исключение при передаче в
+        параметр матрицы с не целым значением"""
+        matrix = [[3, -3, -5, 8], [-3, 2, False, -6], [-4, 3, 5, -6], [3, -3, -5, 8]]
+        self.assertRaises(Exception, calculate_determinant, matrix)
 
+    def test_missing_element_fan(self):
+        """Проверяет, что функция выбрасывает исключение при передаче в
+        параметр матрицы с недостающим элементом (нет элемента)"""
+        matrix = [[3, -3, -5, 8], [-3, 2, -6], [-4, 3, 5, -6], [3, -3, -5, 8]]
+        self.assertRaises(Exception, calculate_determinant, matrix)
+
+    def test_tuple_matrix_fan(self):
+        """Проверяет реакцию функции на матрицу из кортежей"""
+        matrix = ((1, 2), (3, 4))
+        self.assertRaises(Exception, calculate_determinant, matrix)
 
 if __name__ == "__main__":
     unittest.main()
